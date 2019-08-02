@@ -98,7 +98,7 @@ int main(void)
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 
-  if(HAL_I2C_Master_Transmit_IT(&hi2c2, (uint16_t)0x08<<1, (uint8_t*)&i , 1)== HAL_OK)
+  if(HAL_I2C_Master_Transmit_IT(&hi2c2, (uint16_t)0x08<<1, i , 1)== HAL_OK)
      {
        /* Error_Handler() function is called when Timeout error occurs.
           When Acknowledge failure occurs (Slave don't acknowledge it's address)

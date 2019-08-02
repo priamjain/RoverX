@@ -2896,17 +2896,17 @@ LOAD /home/cryp70n1k/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-no
                 0x0000000000000358       0x22 /home/cryp70n1k/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(master_tr.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0x7b13
+.debug_info     0x0000000000000000     0x7b0a
  .debug_info    0x0000000000000000      0x960 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_info    0x0000000000000960      0xeaa Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_info    0x000000000000180a      0x798 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
  .debug_info    0x0000000000001fa2     0x3282 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
  .debug_info    0x0000000000005224      0xa63 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_info    0x0000000000005c87      0xd33 Src/main.o
- .debug_info    0x00000000000069ba      0xa3a Src/stm32f4xx_hal_msp.o
- .debug_info    0x00000000000073f4      0x1cc Src/stm32f4xx_it.o
- .debug_info    0x00000000000075c0      0x531 Src/system_stm32f4xx.o
- .debug_info    0x0000000000007af1       0x22 startup/startup_stm32f411xe.o
+ .debug_info    0x0000000000005c87      0xd2a Src/main.o
+ .debug_info    0x00000000000069b1      0xa3a Src/stm32f4xx_hal_msp.o
+ .debug_info    0x00000000000073eb      0x1cc Src/stm32f4xx_it.o
+ .debug_info    0x00000000000075b7      0x531 Src/system_stm32f4xx.o
+ .debug_info    0x0000000000007ae8       0x22 startup/startup_stm32f411xe.o
 
 .debug_abbrev   0x0000000000000000     0x120c
  .debug_abbrev  0x0000000000000000      0x21c Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
@@ -3025,7 +3025,7 @@ OUTPUT(master_tr.elf elf32-littlearm)
  .debug_line    0x0000000000005734      0x736 Src/system_stm32f4xx.o
  .debug_line    0x0000000000005e6a       0x7f startup/startup_stm32f411xe.o
 
-.debug_str      0x0000000000000000    0x8056c
+.debug_str      0x0000000000000000    0x805a5
  .debug_str     0x0000000000000000    0x7ea86 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                       0x7ede9 (size before relaxing)
  .debug_str     0x000000000007ea86      0x3a8 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
@@ -3044,8 +3044,7 @@ OUTPUT(master_tr.elf elf32-littlearm)
                                       0x7e2b7 (size before relaxing)
  .debug_str     0x00000000000804e3       0x5a Src/system_stm32f4xx.o
                                       0x7e3b6 (size before relaxing)
- .debug_str     0x000000000008053d       0x2f startup/startup_stm32f411xe.o
-                                         0x68 (size before relaxing)
+ .debug_str     0x000000000008053d       0x68 startup/startup_stm32f411xe.o
 
 .comment        0x0000000000000000       0x7f
  .comment       0x0000000000000000       0x7f Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o

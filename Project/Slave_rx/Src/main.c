@@ -38,8 +38,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-uint8_t t[]= "hi";
-uint8_t r[];
+uint8_t r[1];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -60,8 +59,8 @@ static void MX_I2C2_Init(void);
 /* USER CODE BEGIN 0 */
 void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c2)
 {
-	if(r[0]== '7')
-			  {
+	if(r[0]== '7')//to check if it is receiving right value and is it stored in r[0]
+	{
 		  	  HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
 
 		       }
@@ -107,23 +106,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_I2C_Slave_Seq_Receive_IT(&hi2c2, r, 1,I2C_FIRST_AND_LAST_FRAME);
-
-
-	         /* Error_Handler() function is called when Timeout error occurs.
-	            When Acknowledge failure occurs (Slave don't acknowledge it's address)
-	            Master restarts communication */
-	  /*if(HAL_I2C_Slave_Transmit_IT(&hi2c2, t , 2)== HAL_OK)
-	       {
-		  HAL_GPIO_WritePin(GPIOD,GPIO_PIN_13,1);
-		  	  	  HAL_Delay(500);
-		  	  	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_13,0);
-		  	  	HAL_Delay(500);
-		  	  HAL_GPIO_WritePin(GPIOD,GPIO_PIN_13,1);
-		  	  		  	  	  HAL_Delay(500);
-		  	  		  	  	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_13,0);
-	       }
-	       */
+	  HAL_I2C_Slave_Receive_IT(&hi2c2, r, 1);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
