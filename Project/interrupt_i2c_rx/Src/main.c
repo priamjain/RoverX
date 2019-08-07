@@ -82,7 +82,7 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c1)
 	  			  	//HAL_Delay(300);
 	  			       }
 	  	}
-	  HAL_I2C_Slave_Transmit_IT(&hi2c1, r , 5);
+
 
 
 }
