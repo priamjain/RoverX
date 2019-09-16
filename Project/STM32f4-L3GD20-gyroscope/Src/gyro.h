@@ -46,7 +46,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
- extern GYRO_DrvTypeDef L3gd20Drv;
+
 /** @addtogroup BSP
   * @{
   */

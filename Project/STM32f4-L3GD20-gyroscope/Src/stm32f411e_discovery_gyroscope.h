@@ -50,7 +50,6 @@
 
  /* Include Gyroscope component driver */
 #include "l3gd20.h"
- extern GYRO_DrvTypeDef L3gd20Drv;
 /** @addtogroup BSP
   * @{
   */

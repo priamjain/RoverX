@@ -71,7 +71,7 @@ static void MX_I2C1_Init(void);
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
-float pfData[3];
+float pfData;
 /**
   * @brief  The application entry point.
   * @retval int

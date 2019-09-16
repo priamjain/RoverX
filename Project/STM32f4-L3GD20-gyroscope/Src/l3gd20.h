@@ -46,7 +46,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "gyro.h"
- extern GYRO_DrvTypeDef L3gd20Drv;
 /** @addtogroup BSP
   * @{
   */ 
@@ -297,7 +296,6 @@ void    GYRO_IO_Write(uint8_t *pBuffer, uint8_t WriteAddr, uint16_t NumByteToWri
 void    GYRO_IO_Read(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
 
 /* Gyroscope driver structure */
-extern GYRO_DrvTypeDef L3gd20Drv;
 
 /**
   * @}
