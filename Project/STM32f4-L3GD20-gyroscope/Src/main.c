@@ -19,13 +19,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-
 #include "main.h"
-#include "stm32f411e_discovery_gyroscope.h"
-#include "l3gd20.h"
-#include "stm32f411e_discovery.h"
-#include "gyro.h"
-GYRO_DrvTypeDef L3gd20Drv;
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -51,8 +45,8 @@ GYRO_DrvTypeDef L3gd20Drv;
 I2C_HandleTypeDef hi2c1;
 
 SPI_HandleTypeDef hspi1;
-static GYRO_DrvTypeDef *GyroscopeDrv;
-GYRO_InitTypeDef Output_DataRate;
+
+UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
@@ -63,6 +57,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -71,78 +66,11 @@ static void MX_I2C1_Init(void);
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
-float pfData[3];
+
 /**
   * @brief  The application entry point.
   * @retval int
   */
-uint8_t BSP_GYRO_Init(void)
-{
-
-
-  uint16_t ctrl = 0x0000;
-  uint8_t ret = GYRO_ERROR;
-  GYRO_InitTypeDef         L3GD20_InitStructure;
-  GYRO_FilterConfigTypeDef L3GD20_FilterStructure = {0,0};
-
-  if((L3gd20Drv.ReadID() == I_AM_L3GD20))
-  {
-    /* Initialize the Gyroscope driver structure */
-    GyroscopeDrv = &L3gd20Drv;
-
-    /* MEMS configuration ----------------------------------------------------*/
-    /* Fill the Gyroscope structure */
-    L3GD20_InitStructure.Power_Mode = L3GD20_MODE_ACTIVE;
-    L3GD20_InitStructure.Output_DataRate = L3GD20_OUTPUT_DATARATE_1;
-    L3GD20_InitStructure.Axes_Enable = L3GD20_AXES_ENABLE;
-    L3GD20_InitStructure.Band_Width = L3GD20_BANDWIDTH_4;
-    L3GD20_InitStructure.BlockData_Update = L3GD20_BlockDataUpdate_Continous;
-    L3GD20_InitStructure.Endianness = L3GD20_BLE_LSB;
-    L3GD20_InitStructure.Full_Scale = L3GD20_FULLSCALE_500;
-
-    /* Configure MEMS: data rate, power mode, full scale and axes */
-    ctrl = (uint16_t) (L3GD20_InitStructure.Power_Mode | L3GD20_InitStructure.Output_DataRate | \
-                      L3GD20_InitStructure.Axes_Enable | L3GD20_InitStructure.Band_Width);
-
-    ctrl |= (uint16_t) ((L3GD20_InitStructure.BlockData_Update | L3GD20_InitStructure.Endianness | \
-                        L3GD20_InitStructure.Full_Scale) << 8);
-
-    /* Configure the Gyroscope main parameters */
-    GyroscopeDrv->Init(ctrl);
-
-    L3GD20_FilterStructure.HighPassFilter_Mode_Selection =L3GD20_HPM_NORMAL_MODE_RES;
-    L3GD20_FilterStructure.HighPassFilter_CutOff_Frequency = L3GD20_HPFCF_0;
-
-    ctrl = (uint8_t) ((L3GD20_FilterStructure.HighPassFilter_Mode_Selection |\
-                       L3GD20_FilterStructure.HighPassFilter_CutOff_Frequency));
-
-    /* Configure the Gyroscope main parameters */
-    GyroscopeDrv->FilterConfig(ctrl) ;
-
-    GyroscopeDrv->FilterCmd(L3GD20_HIGHPASSFILTER_ENABLE);
-
-    ret = GYRO_OK;
-  }
-  return ret;
-}
-
-uint8_t BSP_GYRO_ReadID(void)
-{
-  uint8_t id = 0x00;
-
-  if(GyroscopeDrv->ReadID != NULL)
-  {
-    id = GyroscopeDrv->ReadID();
-  }
-  return id;
-};
-void BSP_GYRO_GetXYZ(float *pfData)
-	  {
-	    if(GyroscopeDrv->GetXYZ!= NULL)
-	    {
-	      GyroscopeDrv->GetXYZ(pfData);
-	    }
-	  }
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -154,7 +82,7 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-  BSP_GYRO_Init();
+
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -170,8 +98,8 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  BSP_GYRO_ReadID();
 
   /* USER CODE END 2 */
 
@@ -180,7 +108,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  BSP_GYRO_GetXYZ(pfData);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -297,6 +225,39 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
 
 }
 
