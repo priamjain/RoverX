@@ -1,9 +1,9 @@
 #include <Wire_slave.h>
 int dataArray[3] = {1,225,225};
-int claw1fb = PA7; //claw1 feedback
+int claw1fb = PA0; //claw1 feedback
 //int claw2fb = PB5; //claw2 feedback
 volatile long clawudcount = 0;
-int claw1pwm=PB6,claw1dir=PA5;
+int claw1pwm=PA2,claw1dir=PA1;
 volatile long clawrotcount = 0;
 int claw2pwm=PB8,claw2dir=PB7; 
 int flag1 =0;
